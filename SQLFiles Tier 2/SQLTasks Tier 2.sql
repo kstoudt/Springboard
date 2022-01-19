@@ -68,10 +68,10 @@ more than $100. Return the name and monthly maintenance of the facilities
 in question. */
 
 SELECT name, monthlymaintenance,
-    CASE WHEN monthlymaintenance > 100 
-	THEN 'expensive'
-	ELSE 'cheap'
-    END AS cost
+CASE WHEN monthlymaintenance > 100 
+THEN 'expensive'
+ELSE 'cheap'
+END AS cost
 FROM Facilities;
 
 /* Q6: You'd like to get the first and last name of the last member(s)
@@ -87,11 +87,11 @@ the member name. */
 
 SELECT DISTINCT CONCAT_WS(' ', m.firstname, m.surname) AS Name, f.name
 FROM Members AS m
-    RIGHT JOIN Bookings AS b
-        ON m.memid = b.memid
-    LEFT JOIN Facilities AS f
-        ON b.facid = f.facid
-        WHERE f.name LIKE 'Tennis%'
+RIGHT JOIN Bookings AS b
+ON m.memid = b.memid
+LEFT JOIN Facilities AS f
+ON b.facid = f.facid
+WHERE f.name LIKE 'Tennis%'
 ORDER BY Name;
 
 /* Q8: Produce a list of bookings on the day of 2012-09-14 which
@@ -101,18 +101,20 @@ the guest user's ID is always 0. Include in your output the name of the
 facility, the name of the member formatted as a single column, and the cost.
 Order by descending cost, and do not use any subqueries. */
 
-SELECT DISTINCT CONCAT_WS(' ', m.firstname, m.surname) AS Name, f.name AS Facility, cost
-FROM Members AS m 
-RIGHT JOIN Bookings AS b 
-	ON m.memid = b.memid
-		WHERE b.starttime LIKE '2012-09-14%'
-LEFT JOIN Facilities AS f
-	ON b.facid = f.facid
-CASE WHEN b.memid = 0 
-	THEN f.guestcost * b.slots 
-	ELSE f.membercost * b.slots 
-	END AS cost 
-ORDER BY cost DESC;
+SELECT CONCAT_WS(' ', m.firstname, m.surname) AS Name, f.name AS Facility,
+CASE WHEN m.memid = 0
+THEN guestcost * slots
+ELSE membercost * slots
+END AS cost, starttime
+FROM Members AS m
+RIGHT JOIN Bookings AS b ON b.memid = m.memid
+LEFT JOIN Facilities f ON b.facid = f.facid
+WHERE starttime LIKE '2012-09-14%'
+AND
+CASE WHEN m.memid = 0
+THEN guestcost * slots
+ELSE membercost * slots
+END >30;
 
 /* Q9: This time, produce the same result as in Q8, but using a subquery. */
 
