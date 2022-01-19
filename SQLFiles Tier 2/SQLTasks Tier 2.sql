@@ -53,7 +53,7 @@ facilities in question. */
 SELECT facid, name, membercost, monthlymaintenance
 FROM Facilities
 WHERE membercost != 0
-    AND membercost < 0.2*monthlymaintenance;
+AND membercost < 0.2*monthlymaintenance;
 
 /* Q4: Write an SQL query to retrieve the details of facilities with ID 1 and 5.
 Try writing the query without using the OR operator. */
@@ -101,6 +101,7 @@ the guest user's ID is always 0. Include in your output the name of the
 facility, the name of the member formatted as a single column, and the cost.
 Order by descending cost, and do not use any subqueries. */
 
+-- PHPMyAdmin:
 SELECT CONCAT_WS(' ', m.firstname, m.surname) AS Name, f.name AS Facility,
 CASE WHEN m.memid = 0
 THEN guestcost * slots
@@ -108,31 +109,51 @@ ELSE membercost * slots
 END AS cost, starttime
 FROM Members AS m
 RIGHT JOIN Bookings AS b ON b.memid = m.memid
-LEFT JOIN Facilities f ON b.facid = f.facid
+LEFT JOIN Facilities AS f ON b.facid = f.facid
 WHERE starttime LIKE '2012-09-14%'
 AND
 CASE WHEN m.memid = 0
 THEN guestcost * slots
 ELSE membercost * slots
-END >30;
+END >30
+ORDER BY cost DESC;
+
+--pd.read_sql_query('query', engine):
+SELECT m.firstname, m.surname, f.name AS Facility,
+CASE WHEN m.memid = 0
+THEN guestcost * slots
+ELSE membercost * slots
+END AS cost, starttime
+FROM Bookings AS b
+JOIN Members AS m ON b.memid = m.memid
+JOIN Facilities AS f ON b.facid = f.facid
+WHERE starttime LIKE '2012-09-14%'
+AND
+CASE WHEN m.memid = 0
+THEN guestcost * slots
+ELSE membercost * slots
+END >30
+ORDER BY cost DESC;
 
 /* Q9: This time, produce the same result as in Q8, but using a subquery. */
 
-SELECT DISTINCT CONCAT_WS(' ', m.firstname, m.surname) AS Name, Facilities.name AS Facility, (SELECT cost FROM Members AS m
-RIGHT JOIN Bookings AS b 
-	ON m.memid = b.memid WHERE b.starttime LIKE '2012-09-14%'
-LEFT JOIN Facilities AS f
-	ON b.facid = f.facid
-CASE WHEN b.memid = 0 THEN f.guestcost * b.slots 
-	ELSE f.membercost * b.slots 
-	END AS cost)
-FROM Members AS m 
+--pd.read_sql_query('query', engine):
+SELECT firstname, surname, name AS Facility,
+CASE WHEN memid = 0
+THEN guestcost * slots
+ELSE membercost * slots
+END AS cost, starttime
+FROM (SELECT * FROM Bookings AS b
+JOIN Members AS m ON b.memid = m.memid
+JOIN Facilities AS f ON b.facid = f.facid
+WHERE starttime LIKE '2012-09-14%'
+AND CASE WHEN m.memid = 0
+THEN guestcost * slots
+ELSE membercost * slots
+END >30)
 ORDER BY cost DESC;
 
-/* PART 2: SQLite
-
-Export the country club data from PHPMyAdmin, and connect to a local SQLite instance from Jupyter notebook 
-for the following questions.  
+/* PART 2: SQLite in Jupyter Notebook*/
 
 QUESTIONS:
 /* Q10: Produce a list of facilities with a total revenue less than 1000.
