@@ -1,5 +1,5 @@
 # Two self-led capstone projects completed during Springboard's Data Science Career Track.
-- See parent directory for mini-projects and other works completed in pursuit of [this certificate.](https://www.credential.net/b2b699dc-9635-4bbd-b853-fa3dc2196ca9#gs.u0i0tv)
+- See parent directory for mini-projects and other works completed in pursuit of [this certificate.](https://github.com/kstoudt/Springboard/blob/main/Portfolio_Projects/Kyle_Stoudt_Data_Science_Career_Track_Certificate_of_Completion.pdf)
 
 ## [A Comparative Analysis of Approaches to Music Genre Recognition (MGR)](https://github.com/kstoudt/Springboard/tree/main/Portfolio_Projects/Music_Genre_Recognition_Comparative_Analysis)
 
