@@ -4,4 +4,4 @@
 
 This project serves as a proof-of-concept for a Machine Learning model to analyze and predict patient readmission at hospitals.
 
-- **Technical skills applied:** JupyterNotebook, scikit-learn, imbalanced-learn, oversampling, probability thresholding, ROC-AUC curve, classification reports, XGBoost, Logistic Regression, K-Nearest Neighbors, model evaluation and selection, cross-validation for hyperparameter optimization
+- **Technical skills / Tools applied:** JupyterNotebook, scikit-learn, imbalanced-learn, oversampling, probability thresholding, ROC-AUC curve, classification reports, XGBoost, Logistic Regression, K-Nearest Neighbors, model evaluation and selection, cross-validation for hyperparameter optimization

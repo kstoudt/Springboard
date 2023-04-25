@@ -1,1 +1,1 @@
-Data Wrangling & EDA: Open in nbviewer for the full, working notebook [HERE](https://nbviewer.org/github/kstoudt/Springboard/blob/main/Final_Capstone/Notebooks/Final_Capstone_Data_Wrangling_%26_EDA.ipynb)
+Data Wrangling & EDA: Open in nbviewer for the full, working notebook [HERE](https://nbviewer.org/github/kstoudt/Springboard/blob/main/Portfolio_Projects/Music_Genre_Recognition_Comparative_Analysis/Notebooks/Final_Capstone_Data_Wrangling_%26_EDA.ipynb)
